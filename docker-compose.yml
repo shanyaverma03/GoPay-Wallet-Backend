@@ -1,0 +1,59 @@
+# Dockerfile has been added in all micro-services, you need to dockerize all micro-services and add docker-compose.yml file
+version: '3'
+
+services:
+  bankService:
+    image: bankservice
+    build: BankService/
+    restart: always
+    depends_on:
+      - mongoDatabase
+    network_mode: host
+    ports:
+      - 9000:9000
+
+  UserAuthenticationService:
+    image: userauthentication
+    build: UserAuthenticationService/
+    restart: always
+    depends_on:
+      - mongoDatabase
+    network_mode: host
+    ports:
+      - 9100:9100
+
+
+  userService:
+    image: userservice
+    build: UserService/
+    restart: always
+    ports:
+      - 9200:9200
+    depends_on:
+      - mongoDatabase
+    network_mode: host
+
+
+  zuulgateway:
+    image: zuulgateway
+    build: Netflix-zuul-gateway/
+    restart: always
+    network_mode: host
+    depends_on:
+      - servicediscovery
+    ports:
+      - 8765:8765
+
+  servicediscovery:
+    image: servicediscovery
+    build: Netflix-eureka-server/
+    restart: always
+    network_mode: host
+    ports:
+      - 8761:8761
+
+  mongoDatabase:
+    image: mongo:3.2-jessie
+    ports:
+      - 27017:27017
+    network_mode: host

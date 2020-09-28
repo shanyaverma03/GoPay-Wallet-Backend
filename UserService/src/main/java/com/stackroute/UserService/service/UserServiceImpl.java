@@ -50,8 +50,8 @@ public class UserServiceImpl implements UserService {
         user.setCurrencies(map);
 
 
-        User user1 = userRepository.save(user);
-        userSaved = userRepository.insert(user1);
+
+        userSaved = userRepository.insert(user);
         if (userSaved == null) {
             throw new UserAlreadyExistsException("Null");
         }
