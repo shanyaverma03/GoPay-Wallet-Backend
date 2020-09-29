@@ -351,9 +351,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<Transaction> getAllTransactionsByUserId(String userId) {
-        Optional<User> user= userRepository.findById(userId);
-        if(user.isPresent()){
-            return  user.get().getTransactions();
+        User user= userRepository.findByUsername(userId);
+        if(user != null){
+            return  user.getTransactions();
         }
         else {
             return null;

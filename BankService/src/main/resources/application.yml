@@ -1,9 +1,9 @@
 spring:
   data:
     mongodb:
-      database: ${MONGO_DATABASE}
-      port: ${MONGO_PORT}
-      host: ${MONGO_HOST}
+      database: BankDb
+      port: 27017
+      host: localhost
   application:
     name: bank-service
 server:
